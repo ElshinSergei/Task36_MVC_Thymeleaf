@@ -1,0 +1,59 @@
+.tb {
+    margin-top: 20px;
+    font-size: 18px;
+}
+td{
+    height: 50px;
+}
+.btn {
+    height: 35px;
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid black;
+    text-decoration: none;
+}
+table {
+    margin: 10px;
+    text-decoration: none;
+}
+.head-btn{
+    margin-top: 20px;
+}
+*{
+    user-select: none;
+}
+
+.add {
+    background-color: greenyellow;
+}
+.del {
+    background-color: red;
+}
+.delById{
+    text-decoration: none;
+    border: 2px solid black;
+    background-color: red;
+    padding: 5px;
+    margin: 0 5px 0 5px;
+}
+.edit{
+    text-decoration: none;
+    border: 2px solid black;
+    background-color: greenyellow;
+    padding: 5px;
+    margin: 0 5px 0 5px;
+}
+input{
+    margin: 10px;
+}
+.cancel{
+    text-decoration: none;
+}
+.pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+

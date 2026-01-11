@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageName}">Title</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h3>Изменить данные покупателя</h3>
+<form method="post" th:action="@{/customer/update/{id}(id=${customerDTO.getId()})}" th:object="${customerDTO}">
+    Имя: <input type="text" th:field="*{name}">
+    <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <br>
+    Email: <input type="email" th:field="*{email}">
+    <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    <br>
+    Адрес: <input type="text" th:field="*{address}">
+    <span style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+    <br>
+    Дата покупки: <input type="text" th:field="*{orderDate}">
+    <span style="color:red" th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"></span>
+    <br>
+    <button class="btn add" type="submit">Сохранить</button>
+    <a class="cancel" th:href="@{/customer/home}">Отмена</a>
+
+</form>
+
+
+
+</body>
+</html>

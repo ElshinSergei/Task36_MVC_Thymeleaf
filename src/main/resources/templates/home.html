@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageName}">Title</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="head-btn">
+    <a class="btn add" th:href="@{/customer/addAll}">Заполнить таблицу</a>
+    <a class="btn del" th:href="@{/customer/clear}">Удалить все</a>
+    <a class="btn add" th:href="@{/customer/add}">Добавить покупателя</a>
+</div>
+<br>
+
+<div class="tb" th:if="${!customers.isEmpty() and customers!=null}">
+<table border="1">
+    <thead>
+    <tr>
+        <th>
+            <a th:href="@{/customer/home(page=0, size=${pageSize}, sortBy='id', direction=${sortBy == 'id' && direction == 'asc' ? 'desc' : 'asc'})}">Id</a>
+        </th>
+        <th style="width: 200px">
+            <a th:href="@{/customer/home(page=0, size=${pageSize}, sortBy='name', direction=${sortBy == 'name' && direction == 'asc' ? 'desc' : 'asc'})}">Имя</a>
+        </th>
+        <th style="width: 250px">
+            <a th:href="@{/customer/home(page=0, size=${pageSize}, sortBy='email', direction=${sortBy == 'email' && direction == 'asc' ? 'desc' : 'asc'})}">Email</a>
+        </th>
+        <th style="width: 350px">
+            <a th:href="@{/customer/home(page=0, size=${pageSize}, sortBy='address', direction=${sortBy == 'address' && direction == 'asc' ? 'desc' : 'asc'})}">Адрес</a>
+        </th>
+        <th>
+            <a th:href="@{/customer/home(page=0, size=${pageSize}, sortBy='purchases.orderDate', direction=${sortBy == 'purchases.orderDate' && direction == 'asc' ? 'desc' : 'asc'})}">Дата покупки</a>
+        </th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each=" customer : ${customers}">
+        <td th:text="${customer.getId()}"></td>
+        <td th:text="${customer.getName()}"></td>
+        <td th:text="${customer.getEmail()}"></td>
+        <td th:text="${customer.getAddress()}"></td>
+        <td th:text="${customer.purchases != null and !customer.purchases.isEmpty()} ? ${customer.purchases[0].orderDate}"></td>
+        <td>
+            <a class="delById" th:href="@{/customer/delete/{id}(id=${customer.getId()})}">Удалить</a>
+            <a class="edit" th:href="@{/customer/edit/{id}(id=${customer.getId()})}">Изменить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <div class="pages" th:if="${totalPages > 1}">
+        <a th:if="${currentPage > 0}"
+           th:href="@{/customer/home(page=0, size=${pageSize}, sortBy=${sortBy}, direction=${direction})}">
+            Первая
+        </a>
+        <a th:if="${currentPage > 0}"
+           th:href="@{/customer/home(page=${currentPage - 1}, size=${pageSize}, sortBy=${sortBy}, direction=${direction})}">
+            ←
+        </a>
+        <span th:each="i: ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:if="${i != currentPage}"
+               th:href="@{/customer/home(page=${i}, size=${pageSize}, sortBy=${sortBy}, direction=${direction})}"
+               th:text="${i + 1}"></a>
+            <span th:if="${i == currentPage}" class="current" th:text="${i + 1}"></span>
+        </span>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/customer/home(page=${currentPage + 1}, size=${pageSize}, sortBy=${sortBy}, direction=${direction})}">
+            →
+        </a>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/customer/home(page=${totalPages - 1}, size=${pageSize}, sortBy=${sortBy}, direction=${direction})}">
+            Последняя
+        </a>
+
+    </div>
+</div>
+</body>
+</html>
